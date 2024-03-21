@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Runtime.Serialization;
 using Akka.Actor;
 
 namespace WinTail
