@@ -28,25 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new System.Windows.Forms.Button();
+            btnCPU = new System.Windows.Forms.Button();
+            btnMemory = new System.Windows.Forms.Button();
+            btnDisk = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
-            // button1
+            // btnCPU
             // 
-            button1.Location = new System.Drawing.Point(1023, 377);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(112, 34);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnCPU.Location = new System.Drawing.Point(953, 384);
+            btnCPU.Name = "btnCPU";
+            btnCPU.Size = new System.Drawing.Size(162, 54);
+            btnCPU.TabIndex = 0;
+            btnCPU.Text = "CPU (ON)";
+            btnCPU.UseVisualStyleBackColor = true;
+            btnCPU.Click += btnCPU_Click;
+            // 
+            // btnMemory
+            // 
+            btnMemory.Location = new System.Drawing.Point(953, 460);
+            btnMemory.Name = "btnMemory";
+            btnMemory.Size = new System.Drawing.Size(162, 61);
+            btnMemory.TabIndex = 1;
+            btnMemory.Text = "MEMORY (OFF)";
+            btnMemory.UseVisualStyleBackColor = true;
+            btnMemory.Click += btnMemory_Click;
+            // 
+            // btnDisk
+            // 
+            btnDisk.Location = new System.Drawing.Point(953, 537);
+            btnDisk.Name = "btnDisk";
+            btnDisk.Size = new System.Drawing.Size(151, 69);
+            btnDisk.TabIndex = 2;
+            btnDisk.Text = "DISK (OFF)";
+            btnDisk.UseVisualStyleBackColor = true;
+            btnDisk.Click += btnDisk_Click;
             // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1140, 858);
-            Controls.Add(button1);
+            Controls.Add(btnDisk);
+            Controls.Add(btnMemory);
+            Controls.Add(btnCPU);
             Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             Name = "Main";
             Text = "System Metrics";
@@ -58,7 +82,9 @@
         #endregion
 
         private System.Windows.Forms.DataVisualization.Charting.Chart sysChart;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCPU;
+        private System.Windows.Forms.Button btnMemory;
+        private System.Windows.Forms.Button btnDisk;
     }
 }
 
