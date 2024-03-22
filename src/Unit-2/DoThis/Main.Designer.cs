@@ -33,9 +33,9 @@
             // 
             // button1
             // 
-            button1.Location = new System.Drawing.Point(689, 436);
+            button1.Location = new System.Drawing.Point(1023, 377);
             button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(83, 41);
+            button1.Size = new System.Drawing.Size(112, 34);
             button1.TabIndex = 0;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
@@ -43,11 +43,11 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(798, 515);
+            ClientSize = new System.Drawing.Size(1140, 858);
             Controls.Add(button1);
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             Name = "Main";
             Text = "System Metrics";
             FormClosing += Main_FormClosing;
