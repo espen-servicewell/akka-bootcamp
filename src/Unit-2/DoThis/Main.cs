@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Akka.Actor;
@@ -25,7 +26,8 @@ namespace ChartApp
 
         private void Main_Load(object sender, EventArgs e)
         {
-            _chartActor = Program.ChartActors.ActorOf(Props.Create(() => new ChartingActor(sysChart)), "charting");
+            _chartActor = Program.ChartActors.ActorOf(Props.Create(() =>
+                new ChartingActor(sysChart, btnPauseResume)), "charting");
             _chartActor.Tell(new ChartingActor.InitializeChart(null));
 
             _coordinatorActor = Program.ChartActors.ActorOf(Props.Create(() =>
@@ -70,6 +72,11 @@ namespace ChartApp
         private void btnDisk_Click(object sender, EventArgs e)
         {
             _toggleActors[CounterType.Disk].Tell(new ButtonToggleActor.Toggle());
+        }
+
+        private void btnPauseResume_Click(object sender, EventArgs e)
+        {
+            _chartActor.Tell(new ChartingActor.TogglePause());
         }
     }
 }

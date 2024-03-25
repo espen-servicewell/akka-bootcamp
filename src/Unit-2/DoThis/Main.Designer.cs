@@ -31,6 +31,7 @@
             btnCPU = new System.Windows.Forms.Button();
             btnMemory = new System.Windows.Forms.Button();
             btnDisk = new System.Windows.Forms.Button();
+            btnPauseResume = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // btnCPU
@@ -63,11 +64,22 @@
             btnDisk.UseVisualStyleBackColor = true;
             btnDisk.Click += btnDisk_Click;
             // 
+            // btnPauseResume
+            // 
+            btnPauseResume.Location = new System.Drawing.Point(953, 319);
+            btnPauseResume.Name = "btnPauseResume";
+            btnPauseResume.Size = new System.Drawing.Size(151, 59);
+            btnPauseResume.TabIndex = 3;
+            btnPauseResume.Text = "Pause ||";
+            btnPauseResume.UseVisualStyleBackColor = true;
+            btnPauseResume.Click += btnPauseResume_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1140, 858);
+            Controls.Add(btnPauseResume);
             Controls.Add(btnDisk);
             Controls.Add(btnMemory);
             Controls.Add(btnCPU);
@@ -85,6 +97,7 @@
         private System.Windows.Forms.Button btnCPU;
         private System.Windows.Forms.Button btnMemory;
         private System.Windows.Forms.Button btnDisk;
+        private System.Windows.Forms.Button btnPauseResume;
     }
 }
 
