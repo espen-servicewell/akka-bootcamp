@@ -71,11 +71,20 @@ namespace GithubActors.Actors
             pendingJobReplies = _coordinator.Ask<Routees>(new GetRoutees())
                 .Result.Members.Count();
             Become(Asking);
+
+            // send ourselves a ReceiveTimeout message if no message within 3 seconds
+            Context.SetReceiveTimeout(TimeSpan.FromSeconds(3));
         }
 
         private void Asking() {
 
             Receive<CanAcceptJob>(job => Stash.Stash());
+
+            Receive<ReceiveTimeout>(timeout =>
+            {
+                _canAcceptJobSender.Tell(new UnableToAcceptJob(_repoJob));
+                BecomeReady();
+            });
 
             Receive<UnableToAcceptJob>(job =>
             {
@@ -105,6 +114,9 @@ namespace GithubActors.Actors
         {
             Become(Ready);
             Stash.UnstashAll();
+
+            // cancel ReceiveTimeout
+            Context.SetReceiveTimeout(null);
         }
 
         protected override void PreStart()
