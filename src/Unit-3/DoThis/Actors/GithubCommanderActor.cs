@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Forms;
 using Akka.Actor;
 using Akka.Routing;
 
@@ -46,20 +47,42 @@ namespace GithubActors.Actors
 
         private IActorRef _coordinator;
         private IActorRef _canAcceptJobSender;
-
+        private int pendingJobReplies;
         public IStash Stash { get; set; }
 
         public GithubCommanderActor()
         {
+            Ready();
+        }
+
+        private void Ready() {
             Receive<CanAcceptJob>(job =>
             {
-                _canAcceptJobSender = Sender;
                 _coordinator.Tell(job);
+
+                BecomeAsking();
             });
+        }
+        
+        private void BecomeAsking()
+        {
+            _canAcceptJobSender = Sender;
+            pendingJobReplies = 3; // number of routees
+            Become(Asking);
+        }
+
+        private void Asking() {
+
+            Receive<CanAcceptJob>(job => Stash.Stash());
 
             Receive<UnableToAcceptJob>(job =>
             {
-                _canAcceptJobSender.Tell(job);
+                pendingJobReplies--;
+                if (pendingJobReplies == 0)
+                {
+                    _canAcceptJobSender.Tell(job);
+                    BecomeReady();
+                }
             });
 
             Receive<AbleToAcceptJob>(job =>
@@ -67,11 +90,19 @@ namespace GithubActors.Actors
                 _canAcceptJobSender.Tell(job);
 
                 //start processing messages
-                _coordinator.Tell(new GithubCoordinatorActor.BeginJob(job.Repo));
+                Sender.Tell(new GithubCoordinatorActor.BeginJob(job.Repo));
 
                 //launch the new window to view results of the processing
                 Context.ActorSelection(ActorPaths.MainFormActor.Path).Tell(new MainFormActor.LaunchRepoResultsWindow(job.Repo, Sender));
+
+                BecomeReady();
             });
+        }
+
+        private void BecomeReady()
+        {
+            Become(Ready);
+            Stash.UnstashAll();
         }
 
         protected override void PreStart()
